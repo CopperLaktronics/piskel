@@ -57,7 +57,13 @@
         // onSuccess
         function (piskel) {
           this.mergeData.mergePiskel = piskel;
-          this.wizard.goTo('SELECT_MODE');
+          if (this.piskelController.isEmpty()) {
+            // If the current sprite is empty finalize immediately and replace the current sprite.
+            this.mergeData.importMode = ns.steps.SelectMode.MODES.REPLACE;
+            this.finalizeImport_();
+          } else {
+            this.wizard.goTo('SELECT_MODE');
+          }
         }.bind(this),
         // onError
         function (reason) {
@@ -80,7 +86,13 @@
     var step = this.wizard.getCurrentStep();
 
     if (step.name === 'IMAGE_IMPORT') {
-      this.wizard.goTo('SELECT_MODE');
+      if (this.piskelController.isEmpty()) {
+        // If the current sprite is empty finalize immediately and replace the current sprite.
+        this.mergeData.importMode = ns.steps.SelectMode.MODES.REPLACE;
+        this.finalizeImport_();
+      } else {
+        this.wizard.goTo('SELECT_MODE');
+      }
     } else if (step.name === 'SELECT_MODE') {
       if (this.mergeData.importMode === ns.steps.SelectMode.MODES.REPLACE) {
         this.finalizeImport_();
