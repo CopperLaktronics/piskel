@@ -57,13 +57,7 @@
         // onSuccess
         function (piskel) {
           this.mergeData.mergePiskel = piskel;
-          if (this.piskelController.isEmpty()) {
-            // If the current sprite is empty finalize immediately and replace the current sprite.
-            this.mergeData.importMode = ns.steps.SelectMode.MODES.REPLACE;
-            this.finalizeImport_();
-          } else {
-            this.wizard.goTo('SELECT_MODE');
-          }
+          this.wizard.goTo('SELECT_MODE');
         }.bind(this),
         // onError
         function (reason) {
